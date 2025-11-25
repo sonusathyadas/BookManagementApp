@@ -42,6 +42,11 @@ namespace BookManagementAPI.API.Controllers
         [HttpGet("category/{category}")]
         public async Task<ActionResult<IEnumerable<BookDto>>> GetBooksByCategory(string category)
         {
+            if (string.IsNullOrWhiteSpace(category))
+            {
+                return BadRequest("Category cannot be empty");
+            }
+
             var books = await _bookRepository.GetBooksByCategory(category);
             return Ok(_mapper.Map<IEnumerable<BookDto>>(books));
         }
