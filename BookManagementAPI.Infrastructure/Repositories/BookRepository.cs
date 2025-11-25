@@ -3,6 +3,7 @@ using BookManagementAPI.Core.Models;
 using BookManagementAPI.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BookManagementAPI.Infrastructure.Repositories
@@ -24,6 +25,13 @@ namespace BookManagementAPI.Infrastructure.Repositories
         public async Task<Book> GetBookById(int id)
         {
             return await _context.Books.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Book>> GetBooksByCategory(string category)
+        {
+            return await _context.Books
+                .Where(b => b.Category != null && b.Category.ToLower() == category.ToLower())
+                .ToListAsync();
         }
 
         public async Task AddBook(Book book)

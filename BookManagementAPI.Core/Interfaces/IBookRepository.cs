@@ -9,6 +9,7 @@ namespace BookManagementAPI.Core.Interfaces
     {
         Task<IEnumerable<Book>> GetAllBooks();
         Task<Book> GetBookById(int id);
+        Task<IEnumerable<Book>> GetBooksByCategory(string category);
         Task AddBook(Book book);
         Task UpdateBook(Book book);
         Task DeleteBook(int id);
