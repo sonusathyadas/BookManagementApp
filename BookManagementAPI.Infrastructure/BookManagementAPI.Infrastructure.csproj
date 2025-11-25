@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>BookManagementAPI.Infrastructure</RootNamespace>
     <AssemblyName>BookManagementAPI.Infrastructure</AssemblyName>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

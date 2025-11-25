@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using BookManagementAPI.Core.Interfaces;
 using BookManagementAPI.API.DTOs;
 using BookManagementAPI.Core.Models;
@@ -10,6 +11,7 @@ namespace BookManagementAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BooksController : ControllerBase
     {
         private readonly IBookRepository _bookRepository;
