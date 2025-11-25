@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  bookmanagement-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bookmanagement-api
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/books.db
+    volumes:
+      - book-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  book-data:
+    driver: local
