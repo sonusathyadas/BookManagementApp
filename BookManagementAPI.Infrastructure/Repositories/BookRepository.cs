@@ -34,6 +34,13 @@ namespace BookManagementAPI.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Book>> GetBooksByAuthor(string author)
+        {
+            return await _context.Books
+                .Where(b => b.Author != null && b.Author.ToLower() == author.ToLower())
+                .ToListAsync();
+        }
+
         public async Task AddBook(Book book)
         {
             await _context.Books.AddAsync(book);
