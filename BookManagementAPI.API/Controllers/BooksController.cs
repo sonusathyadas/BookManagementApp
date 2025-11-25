@@ -39,6 +39,13 @@ namespace BookManagementAPI.API.Controllers
             return Ok(_mapper.Map<BookDto>(book));
         }
 
+        [HttpGet("category/{category}")]
+        public async Task<ActionResult<IEnumerable<BookDto>>> GetBooksByCategory(string category)
+        {
+            var books = await _bookRepository.GetBooksByCategory(category);
+            return Ok(_mapper.Map<IEnumerable<BookDto>>(books));
+        }
+
         [HttpPost]
         public async Task<ActionResult<BookDto>> CreateBook(CreateBookDto createBookDto)
         {
