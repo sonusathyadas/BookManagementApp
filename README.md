@@ -20,10 +20,41 @@ The project is organized into three main projects:
 
 ### Prerequisites
 
+#### For local development:
 - .NET 8 SDK
 - SQLite database
 
+#### For Docker deployment:
+- Docker
+- Docker Compose (optional)
+
 ### Installation
+
+#### Option 1: Run with Docker (Recommended)
+
+1. Clone the repository:
+   ```
+   git clone <repository-url>
+   cd BookManagementAPI
+   ```
+
+2. Build and run with Docker Compose:
+   ```
+   docker-compose up -d
+   ```
+
+   Or build and run with Docker directly:
+   ```
+   docker build -t bookmanagement-api .
+   docker run -p 8080:8080 \
+     -e ConnectionStrings__DefaultConnection="Data Source=/app/data/books.db" \
+     -v $(pwd)/data:/app/data \
+     bookmanagement-api
+   ```
+
+3. The API will be accessible at `http://localhost:8080`
+
+#### Option 2: Run locally with .NET
 
 1. Clone the repository:
    ```
@@ -45,8 +76,17 @@ The project is organized into three main projects:
 
 ### Usage
 
-- The API can be accessed at `http://localhost:5000` (or the port specified in your configuration).
+- When using Docker, the API can be accessed at `http://localhost:8080`.
+- When running locally, the API can be accessed at `http://localhost:5000` (or the port specified in your configuration).
 - Use tools like Postman or curl to interact with the API endpoints for managing books.
+
+### Environment Variables
+
+The following environment variables can be configured:
+
+- `ASPNETCORE_ENVIRONMENT`: Set the application environment (Development, Production). Default: Production
+- `ASPNETCORE_URLS`: Set the URLs the application listens on. Default: http://+:8080
+- `ConnectionStrings__DefaultConnection`: Database connection string. Default: Data Source=books.db
 
 ### Endpoints
 

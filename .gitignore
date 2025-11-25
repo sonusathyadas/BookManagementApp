@@ -514,3 +514,7 @@ $RECYCLE.BIN/
 *.db
 *.db-shm
 *.db-wal
+
+# Data directory for Docker volumes (keep structure but not data)
+data/*
+!data/.gitkeep

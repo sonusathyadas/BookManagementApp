@@ -1,0 +1,45 @@
+# Build results
+**/bin/
+**/obj/
+**/out/
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# IDE and Editor files
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+
+# Logs
+*.log
+logs/
+
+# ASP.NET Core
+appsettings.Development.json
+appsettings.Production.json
+
+# Documentation
+README.md
+LICENSE
+
+# Docker files
+Dockerfile
+.dockerignore
+docker-compose*.yml
