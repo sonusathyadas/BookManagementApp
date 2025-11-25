@@ -51,6 +51,18 @@ namespace BookManagementAPI.API.Controllers
             return Ok(_mapper.Map<IEnumerable<BookDto>>(books));
         }
 
+        [HttpGet("author/{author}")]
+        public async Task<ActionResult<IEnumerable<BookDto>>> GetBooksByAuthor(string author)
+        {
+            if (string.IsNullOrWhiteSpace(author))
+            {
+                return BadRequest("Author cannot be empty");
+            }
+
+            var books = await _bookRepository.GetBooksByAuthor(author);
+            return Ok(_mapper.Map<IEnumerable<BookDto>>(books));
+        }
+
         [HttpPost]
         public async Task<ActionResult<BookDto>> CreateBook(CreateBookDto createBookDto)
         {
