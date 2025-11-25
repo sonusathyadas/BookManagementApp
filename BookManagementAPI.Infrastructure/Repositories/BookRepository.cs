@@ -29,11 +29,6 @@ namespace BookManagementAPI.Infrastructure.Repositories
 
         public async Task<IEnumerable<Book>> GetBooksByCategory(string category)
         {
-            if (string.IsNullOrWhiteSpace(category))
-            {
-                return Enumerable.Empty<Book>();
-            }
-
             return await _context.Books
                 .Where(b => b.Category != null && b.Category.ToLower() == category.ToLower())
                 .ToListAsync();
