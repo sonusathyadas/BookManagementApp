@@ -37,8 +37,3 @@ appsettings.Development.json
 # Documentation
 README.md
 LICENSE
-
-# Docker files
-Dockerfile
-.dockerignore
-docker-compose*.yml
