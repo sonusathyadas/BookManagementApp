@@ -1,6 +1,6 @@
 # Book Management API
 
-This project is a .NET 8 Web API for managing book operations. It utilizes Entity Framework with SQLite for database operations and implements the Repository pattern along with Data Transfer Objects (DTOs) for data handling.
+This project is a .NET 8 Web API for managing book operations. It utilizes Entity Framework with SQLite for database operations and implements the Repository pattern along with Data Transfer Objects (DTOs) for data handling. The API is secured with JWT (JSON Web Token) authentication.
 
 ## Project Structure
 
@@ -12,6 +12,8 @@ The project is organized into three main projects:
 
 ## Features
 
+- JWT authentication for secure API access
+- User registration and login
 - Manage books with operations to create, read, update, and delete book entries.
 - Use of DTOs to transfer data between the client and server.
 - Repository pattern for data access, promoting separation of concerns.
@@ -56,7 +58,12 @@ The project is organized into three main projects:
 
 3. Update the database connection string in `BookManagementAPI.API/appsettings.json` if necessary.
 
-4. Run the application:
+4. Apply database migrations:
+   ```
+   dotnet ef database update --project BookManagementAPI.Infrastructure/BookManagementAPI.Infrastructure.csproj --startup-project BookManagementAPI.API/BookManagementAPI.API.csproj
+   ```
+
+5. Run the application:
    ```
    dotnet run --project BookManagementAPI.API/BookManagementAPI.API.csproj
    ```
@@ -104,13 +111,62 @@ docker run -d -p 5000:8080 \
 - Use tools like Postman or curl to interact with the API endpoints for managing books.
 - Swagger UI is available at `http://localhost:5000/swagger` in development mode.
 
+### Authentication
+
+The API uses JWT (JSON Web Token) authentication. To access protected endpoints:
+
+1. Register a new user:
+   ```bash
+   curl -X POST http://localhost:5000/api/auth/register \
+     -H "Content-Type: application/json" \
+     -d '{
+       "username": "youruser",
+       "password": "yourpassword",
+       "firstname": "John",
+       "lastname": "Doe",
+       "email": "john@example.com"
+     }'
+   ```
+
+2. Login to get a JWT token:
+   ```bash
+   curl -X POST http://localhost:5000/api/auth/login \
+     -H "Content-Type: application/json" \
+     -d '{
+       "username": "youruser",
+       "password": "yourpassword"
+     }'
+   ```
+
+3. Use the returned token to access protected endpoints:
+   ```bash
+   curl -X GET http://localhost:5000/api/books \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN"
+   ```
+
 ### Endpoints
 
+#### Authentication Endpoints
+- `POST /api/auth/register`: Register a new user
+- `POST /api/auth/login`: Login and receive a JWT token
+
+#### Book Management Endpoints (Require Authentication)
 - `GET /api/books`: Retrieve all books.
 - `GET /api/books/{id}`: Retrieve a book by its ID.
+- `GET /api/books/category/{category}`: Retrieve books by category.
 - `POST /api/books`: Create a new book.
 - `PUT /api/books/{id}`: Update an existing book.
 - `DELETE /api/books/{id}`: Delete a book by its ID.
+
+## Security Considerations
+
+⚠️ **Important**: The current implementation uses plain text password storage for simplicity. In a production environment, you should:
+
+1. Implement password hashing using BCrypt, Argon2, or PBKDF2
+2. Store the JWT secret in environment variables or a secure key vault
+3. Add password complexity requirements
+4. Implement rate limiting for authentication endpoints
+5. Add account lockout after failed login attempts
 
 ## Contributing
 
