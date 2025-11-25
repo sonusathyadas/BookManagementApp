@@ -33,7 +33,6 @@ logs/
 
 # ASP.NET Core
 appsettings.Development.json
-appsettings.Production.json
 
 # Documentation
 README.md
